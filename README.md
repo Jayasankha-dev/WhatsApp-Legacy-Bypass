@@ -43,7 +43,9 @@ Clone the repository and install the necessary libraries:
 
 Bash:
 git clone https://github.com/Jayasankha-dev/WhatsApp-Legacy-Bypass.git
+
 cd WhatsApp-Legacy-Bypass
+
 pip install -r requirements.txt
 
 
