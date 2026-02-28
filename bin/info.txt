@@ -1,0 +1,23 @@
+============================================================
+ADB BINARY COMPONENTS
+============================================================
+
+This folder contains the core Android Debug Bridge (ADB) 
+executables required for the Cyber-Forensic Analyzer to 
+communicate with Android devices.
+
+REQUIRED FILES IN THIS FOLDER:
+------------------------------
+1. adb.exe          - The core engine.
+2. AdbWinApi.dll    - Windows interface library.
+3. AdbWinUsbApi.dll - USB driver interface.
+
+INSTRUCTIONS:
+-------------
+- Do not move these files out of this folder.
+- If you get an "ADB not found" error, ensure these 
+  three files are present in this 'bin' directory.
+
+Forensic Tool Version: v5.9
+Developer: Jayasankha-dev
+============================================================
