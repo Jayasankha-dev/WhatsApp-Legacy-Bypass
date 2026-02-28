@@ -5,7 +5,7 @@
 ![Platform](https://img.shields.io/badge/platform-Android-orange.svg)
 
 ## 📌 Overview
-[cite_start]This suite is a specialized digital forensic tool designed to extract WhatsApp databases and encryption keys from non-rooted Android devices[cite: 1, 3]. [cite_start]It specifically addresses the security restrictions in **Android 10, 11, and 12 (SDK 29+)** where standard `adb backup` commands are blocked via the `allowBackup="false"` attribute.
+This suite is a specialized digital forensic tool designed to extract WhatsApp databases and encryption keys from non-rooted Android devices[cite: 1, 3]. [cite_start]It specifically addresses the security restrictions in **Android 10, 11, and 12 (SDK 29+)** where standard `adb backup` commands are blocked via the `allowBackup="false"` attribute.
 
 [cite_start]By utilizing a **Legacy Downgrade Technique**, the tool temporarily replaces the WhatsApp binary with an older version (v2.11.431) that permits data extraction without compromising the user's chat history.
 
@@ -102,3 +102,4 @@ This software is intended for educational and authorized forensic purposes only.
 
 📄 License
 Distributed under the MIT License. See LICENSE for more information.
+
