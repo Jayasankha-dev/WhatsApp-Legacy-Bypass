@@ -1,0 +1,42 @@
+📦 What You Need
+
+pip install pure-python-adb pycryptodome
+
+1. Check if Java is Installed
+Open your CMD and type:
+java -version
+
+If it says "not recognized": You need to install the Java Runtime Environment (JRE) or JDK.
+
+Quick Fix: Download and install OpenJDK (LTS version).
+
+Place these files in a folder with the following structure:
+
+Structure|~
+├── whatsapp_extractor.py
+├── bin\
+│   ├── adb.exe
+│   ├── abe.jar
+│   ├── tar.exe
+│   └── java.exe (or ensure Java is in PATH)
+└── tmp\
+    └── LegacyWhatsApp.apk   (WhatsApp 2.11.431 – download from APKMirror)
+Enable USB Debugging on your Android phone and connect it.
+
+Run the script (double‑click or python whatsapp_extractor.py).
+
+The script will:
+
+Back up your current WhatsApp APK.
+
+Uninstall WhatsApp (keeping your data).
+
+Install the legacy version.
+
+Trigger an ADB backup (you must tap “Back up my data” on your phone).
+
+Extract wa.db, msgstore.db, key, and optionally profile pictures.
+
+Restore your original WhatsApp.
+
+Automatically close after 3 seconds.
