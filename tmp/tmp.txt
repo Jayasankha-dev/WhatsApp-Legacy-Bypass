@@ -1,0 +1,91 @@
+# 1. Setup Input and Output Folders
+# Update these paths relative to your project or use absolute paths as shown below
+$inputFolder = ".\Pulled_Data\Forced_Images"
+$outputFolder = ".\Pulled_Data\Extracted_Images"
+
+# Create Output Folder if it doesn't exist
+if (-not (Test-Path $outputFolder)) { 
+    New-Item -ItemType Directory -Path $outputFolder 
+}
+
+Write-Host "[*] Starting Binary Carving for JPEG headers..." -ForegroundColor Cyan
+
+# 2. Scan files and identify valid JPEG signatures (FF D8)
+Get-ChildItem -Path $inputFolder -Filter "*.was_test*" | ForEach-Object {
+    try {
+        # Read the file as a byte array
+        $bytes = [System.IO.File]::ReadAllBytes($_.FullName)
+        
+        # Search for the JPEG Start of Image (SOI) marker: 0xFF 0xD8
+        for ($i = 0; $i -lt ($bytes.Length - 1); $i++) {
+            if ($bytes[$i] -eq 0xFF -and $bytes[$i+1] -eq 0xD8) {
+                # Extract bytes starting from the JPEG header to the end of the file
+                $imageBytes = $bytes[$i..($bytes.Length - 1)]
+                
+                # Sanitize the filename for the output
+                $safeName = $_.Name -replace '[^\w\.\-]', '_'
+                $newName = $safeName + "_fixed.jpg"
+                $destPath = Join-Path $outputFolder $newName
+                
+                # Write the cleaned image data to a new .jpg file
+                [System.IO.File]::WriteAllBytes($destPath, $imageBytes)
+                Write-Host "[+] Success: Fixed and saved $newName" -ForegroundColor Green
+                break # Move to the next file once a header is found
+            }
+        }
+    } catch {
+        Write-Host "[-] Error processing $($_.Name): $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
+Write-Host "`n[*] Carving Process Complete! Please check the 'Extracted_Images' folder." -ForegroundColor Yellow
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+
+
+# 1. Create the Output Directory
+$outputDir = ".\Forced_Images"
+if (!(Test-Path $outputDir)) { 
+    New-Item -ItemType Directory -Path $outputDir 
+}
+
+# 2. Scan all files in WhatsApp and Android directories
+# We filter for files > 5KB (Minimum size for a valid thumbnail/image)
+Get-ChildItem -Path ".\" -Recurse -File | Where-Object { $_.Length -gt 5120 } | ForEach-Object {
+    try {
+        # Skip the output directory to avoid infinite loops
+        if ($_.FullName -match "Forced_Images") { return }
+
+        $newName = $_.BaseName + "_test.jpg"
+        $targetPath = Join-Path $outputDir $newName
+        
+        # Handle duplicate filenames
+        $i = 1
+        while (Test-Path $targetPath) {
+            $targetPath = Join-Path $outputDir ($_.BaseName + "_test_$i.jpg")
+            $i++
+        }
+
+        # Force copy and rename to .jpg
+        Copy-Item $_.FullName -Destination $targetPath -Force
+    } catch { 
+        Write-Host "Skipping: $($_.Name)" -ForegroundColor Gray
+    }
+}
+
+Write-Host "----------------------------------------------------" -ForegroundColor Green
+Write-Host "Carving Complete! Open 'Forced_Images' to inspect results." -ForegroundColor Yellow
+Write-Host "Look for thumbnails or profile pictures manually." -ForegroundColor Cyan
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+Get-ChildItem -File | Rename-Item -NewName { $_.BaseName + ".jpg" }
