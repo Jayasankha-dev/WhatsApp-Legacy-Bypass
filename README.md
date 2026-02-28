@@ -16,7 +16,7 @@ SDK 29+ Support: Specifically designed to bypass modern Android security layers.
 Automated Cleanup: Automatically triggers the restoration of the latest WhatsApp version via Play Store after extraction.
 
 📁 Project Structure
-Plaintext
+
 ├── whatsapp_extractor.py     # Main Python automation logic
 ├── requirements.txt          # Python dependencies
 ├── scripts/                  # Advanced Recovery Scripts
@@ -28,6 +28,8 @@ Plaintext
 │   └── LegacyWhatsApp.apk    # WhatsApp v2.11.431
 ├── tmp/                      # Staging area for .ab and .tar files
 └── extracted/                # Final Forensic Output
+
+
 🛠️ Installation & Requirements
 1. Prerequisites
 Java (JRE/JDK): Must be installed and added to your System Environment Variables (PATH).
@@ -39,10 +41,12 @@ ADB Drivers: Ensure your PC recognizes your Android device.
 2. Setup
 Clone the repository and install the necessary libraries:
 
-Bash
+Bash:
 git clone https://github.com/Jayasankha-dev/WhatsApp-Legacy-Bypass.git
 cd WhatsApp-Legacy-Bypass
 pip install -r requirements.txt
+
+
 3. Binary Placement
 Due to copyright restrictions, you must provide the following in the bin/ folder:
 
@@ -56,9 +60,8 @@ Enable USB Debugging on the target device via Developer Options. Ensure "Install
 
 Step 2: Run Extractor
 Launch the main script:
-
-Bash
 python whatsapp_extractor.py
+
 Important: When the phone prompts for a backup, leave the password field blank and tap "Back up my data".
 
 Step 3: Advanced Media Recovery (Optional)
